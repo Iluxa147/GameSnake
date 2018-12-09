@@ -5,7 +5,7 @@ Board::Board(Graphics& gfx) :
 	gfx_(gfx)
 {}
 
-void Board::DrawCell(Location& loc, Color c)
+void Board::DrawCell(const Location& loc, Color c)
 {
 	assert(loc.x >= 0);
 	assert(loc.x < gfx_.ScreenWidth);
@@ -22,4 +22,11 @@ int Board::GetBoardWidth() const
 int Board::GetBoardHeight() const
 {
 	return height_;
+}
+
+bool Board::isInsideBoard(const Location & loc) const
+{
+	return
+		loc.x >= 0 && loc.x < width_ &&
+		loc.y >= 0 && loc.y < height_;
 }

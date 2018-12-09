@@ -3,36 +3,66 @@
 
 Game::Game(MainWindow& wnd)
 	:
-	wnd(wnd),
-	gfx(wnd),
-	brd_(gfx),
-	rng_(std::random_device()())
+	wnd_(wnd),
+	gfx_(wnd),
+	brd_(gfx_),
+	rng_(std::random_device()()),
+	snake_({2,2})
 {
 }
 
 void Game::Go()
 {
-	gfx.BeginFrame();
+	gfx_.BeginFrame();
 	UpdateModel();
 	ComposeFrame();
-	gfx.EndFrame();
+	gfx_.EndFrame();
 }
 
 void Game::UpdateModel()
 {
+	if (!isGameOver)
+	{
+		if (wnd_.kbd.IsKeyPressed(VK_UP))
+		{
+			deltaLoc = { 0,-1 };
+			;
+		}
+		if (wnd_.kbd.IsKeyPressed(VK_DOWN))
+		{
+			deltaLoc = { 0,1 };
+		}
+		if (wnd_.kbd.IsKeyPressed(VK_LEFT))
+		{
+			deltaLoc = { -1,0 };
+		}
+		if (wnd_.kbd.IsKeyPressed(VK_RIGHT))
+		{
+			deltaLoc = { 1,0 };
+		}
+
+		++snakeMoveCounter;
+		if (snakeMoveCounter >= snakeMovePeriod)
+		{
+			snakeMoveCounter = 0u;
+			const Location segNextLoc = snake_.GetNextHeadLocation(deltaLoc);
+			if (!brd_.isInsideBoard(segNextLoc) || snake_.isInTileExceptEnd(segNextLoc))
+			{
+				isGameOver = true;
+			}
+			else
+			{
+				if (wnd_.kbd.IsKeyPressed(VK_CONTROL))
+				{
+					snake_.Grow();
+				}
+				snake_.MoveBy(deltaLoc);
+			}
+		}
+	}
 }
 
 void Game::ComposeFrame()
 {
-	std::uniform_int_distribution<int> colorsDist(0, 255);
-	for (size_t y = 0; y < brd_.GetBoardHeight(); ++y)
-	{
-		for (size_t x = 0; x < brd_.GetBoardWidth(); ++x)
-		{
-			Location loc = { x, y };
-			Color c(colorsDist(rng_), colorsDist(rng_), colorsDist(rng_));
-			brd_.DrawCell(loc, c);
-		}
-	}
-
+	snake_.Draw(brd_);
 }
