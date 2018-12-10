@@ -138,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="Dude.h" />
+    <ClInclude Include="Goal.h" />
     <ClInclude Include="IException.h" />
     <ClInclude Include="IWin.h" />
     <ClInclude Include="Colors.h" />
@@ -156,6 +157,7 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="DXErr.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Goal.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Main.cpp" />

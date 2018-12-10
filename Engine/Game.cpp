@@ -7,7 +7,8 @@ Game::Game(MainWindow& wnd)
 	gfx_(wnd),
 	brd_(gfx_),
 	rng_(std::random_device()()),
-	snake_({2,2})
+	snake_({10,10}),
+	goal_(rng_, brd_, snake_)
 {
 }
 
@@ -21,6 +22,8 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	brd_.DrawLimit();
+
 	if (!isGameOver)
 	{
 		if (wnd_.kbd.IsKeyPressed(VK_UP))
@@ -52,9 +55,11 @@ void Game::UpdateModel()
 			}
 			else
 			{
-				if (wnd_.kbd.IsKeyPressed(VK_CONTROL))
+				const bool isEaten = segNextLoc == goal_.GetLocation();
+				if (wnd_.kbd.IsKeyPressed(VK_CONTROL) || isEaten)
 				{
-					snake_.Grow();
+					snake_.Grow(rng_);
+					goal_.Spawn(rng_,brd_, snake_);
 				}
 				snake_.MoveBy(deltaLoc);
 			}
@@ -64,5 +69,6 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
+	goal_.Draw(brd_);
 	snake_.Draw(brd_);
 }

@@ -7,6 +7,7 @@
 #include <random>
 #include "Snake.h"
 #include "Location.h"
+#include "Goal.h"
 
 class Game
 {
@@ -24,8 +25,9 @@ private:
 	Board brd_;
 	std::mt19937 rng_;
 	unsigned int snakeMoveCounter = 0u;
-	static constexpr unsigned int snakeMovePeriod = 10u;
-	Location deltaLoc = {1,0};
+	static constexpr unsigned int snakeMovePeriod = 5u;
+	Location deltaLoc = { 1,0};
 	Snake snake_;
+	Goal goal_;
 	bool isGameOver = false;
 };

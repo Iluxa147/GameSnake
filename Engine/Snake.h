@@ -2,6 +2,7 @@
 #include "Location.h"
 #include "Colors.h"
 #include "Board.h"
+#include <random>
 
 class Snake
 {
@@ -10,7 +11,7 @@ private:
 	{
 	public:
 		void InitHead(const Location& loc);
-		void InitBody();
+		void InitBody(std::mt19937 & rng);
 		void Follow(const Segment& next);
 		void MoveBy(const Location & deltaLoc);
 		void Draw(Board& brd) const;
@@ -25,14 +26,13 @@ public:
 	Snake(const Location& loc);
 	void MoveBy(const Location& deltaLoc);
 	Location& GetNextHeadLocation(const Location& deltaLocation)const;
-	void Grow();
+	void Grow(std::mt19937 & rng);
 	void Draw(Board& brd) const;
-	bool isInTile(const Location& loc) const;
+	bool isInTileExceptEnd(const Location& loc) const;
 
 private:
 	static constexpr unsigned int segMaxCount_ = 100u;
-	static constexpr Color headColor_ = Colors::Red;
-	static constexpr Color bodyColor_ = Colors::Green;
+	static constexpr Color headColor_ = Colors::Yellow;
 	Segment segArr_[segMaxCount_];
 	unsigned int segCurrent_ = 1u;
 };
