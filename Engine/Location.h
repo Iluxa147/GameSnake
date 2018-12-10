@@ -12,6 +12,10 @@ public:
 	{
 		return x == rval.x && y == rval.y;
 	}
+	bool operator != (const Location& rval) const
+	{
+		return x != rval.x &&y != rval.y;
+	}
 
 public:
 	int x;

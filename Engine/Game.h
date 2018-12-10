@@ -25,9 +25,11 @@ private:
 	Board brd_;
 	std::mt19937 rng_;
 	unsigned int snakeMoveCounter = 0u;
-	static constexpr unsigned int snakeMovePeriod = 5u;
+	unsigned int snakeMovePeriod = 10u;
 	Location deltaLoc = { 1,0};
 	Snake snake_;
 	Goal goal_;
+	unsigned int growCoutn = 0u;
+	Location nextDirection_;
 	bool isGameOver = false;
 };

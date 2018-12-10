@@ -28,20 +28,37 @@ void Game::UpdateModel()
 	{
 		if (wnd_.kbd.IsKeyPressed(VK_UP))
 		{
-			deltaLoc = { 0,-1 };
-			;
+			nextDirection_ = { 0,-1 };
+			if (nextDirection_ != deltaLoc)
+			{
+				deltaLoc = { 0,-1 };
+			}
 		}
 		if (wnd_.kbd.IsKeyPressed(VK_DOWN))
 		{
-			deltaLoc = { 0,1 };
+			nextDirection_ = { 0,1 };
+			if (nextDirection_ != deltaLoc)
+			{
+				deltaLoc = { 0,1 };
+			}
 		}
 		if (wnd_.kbd.IsKeyPressed(VK_LEFT))
 		{
-			deltaLoc = { -1,0 };
+			nextDirection_ = { -1,0 };
+			if (nextDirection_ != deltaLoc)
+
+			{
+				deltaLoc = { -1,0 };
+			}
 		}
 		if (wnd_.kbd.IsKeyPressed(VK_RIGHT))
 		{
-			deltaLoc = { 1,0 };
+			nextDirection_ = { 1,0 };
+			if (nextDirection_ != deltaLoc)
+
+			{
+				deltaLoc = { 1,0 };
+			}
 		}
 
 		++snakeMoveCounter;
@@ -59,6 +76,14 @@ void Game::UpdateModel()
 				if (wnd_.kbd.IsKeyPressed(VK_CONTROL) || isEaten)
 				{
 					snake_.Grow(rng_);
+					++growCoutn;
+					if (growCoutn % 2 == 0)
+					{
+						if (snakeMovePeriod!=2)
+						{
+							--snakeMovePeriod;
+						}
+					}
 					goal_.Spawn(rng_,brd_, snake_);
 				}
 				snake_.MoveBy(deltaLoc);
