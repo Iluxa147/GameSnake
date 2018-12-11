@@ -29,38 +29,56 @@ void Game::UpdateModel()
 		if (wnd_.kbd.IsKeyPressed(VK_UP))
 		{
 			nextDirection_ = { 0,-1 };
-			if (nextDirection_ != deltaLoc)
+
+			if (abs(nextDirection_.y) != abs(currDirection_.y))
 			{
 				deltaLoc = { 0,-1 };
 			}
+			else
+			{
+				deltaLoc = currDirection_;
+			}
+
 		}
-		if (wnd_.kbd.IsKeyPressed(VK_DOWN))
+		else if (wnd_.kbd.IsKeyPressed(VK_DOWN))
 		{
 			nextDirection_ = { 0,1 };
-			if (nextDirection_ != deltaLoc)
+			if (abs(nextDirection_.y) != abs(currDirection_.y))
 			{
 				deltaLoc = { 0,1 };
 			}
+			else
+			{
+				deltaLoc = currDirection_;
+			}
 		}
-		if (wnd_.kbd.IsKeyPressed(VK_LEFT))
+		else if (wnd_.kbd.IsKeyPressed(VK_LEFT))
 		{
 			nextDirection_ = { -1,0 };
-			if (nextDirection_ != deltaLoc)
 
+			if (abs(nextDirection_.x) != abs(currDirection_.x))
 			{
 				deltaLoc = { -1,0 };
 			}
+			else
+			{
+				deltaLoc = currDirection_;
+			}
+
 		}
-		if (wnd_.kbd.IsKeyPressed(VK_RIGHT))
+		else if (wnd_.kbd.IsKeyPressed(VK_RIGHT))
 		{
 			nextDirection_ = { 1,0 };
-			if (nextDirection_ != deltaLoc)
 
+			if (abs(nextDirection_.x) != abs(currDirection_.x))
 			{
 				deltaLoc = { 1,0 };
 			}
+			else
+			{
+				deltaLoc = currDirection_;
+			}
 		}
-
 		++snakeMoveCounter;
 		if (snakeMoveCounter >= snakeMovePeriod)
 		{
@@ -87,6 +105,8 @@ void Game::UpdateModel()
 					goal_.Spawn(rng_,brd_, snake_);
 				}
 				snake_.MoveBy(deltaLoc);
+				currDirection_ = deltaLoc;
+
 			}
 		}
 	}

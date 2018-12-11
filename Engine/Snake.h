@@ -28,6 +28,7 @@ public:
 	Location& GetNextHeadLocation(const Location& deltaLocation)const;
 	void Grow(std::mt19937 & rng);
 	void Draw(Board& brd) const;
+	bool isInTile(const Location& loc) const;
 	bool isInTileExceptEnd(const Location& loc) const;
 
 private:

@@ -14,7 +14,7 @@ public:
 	}
 	bool operator != (const Location& rval) const
 	{
-		return x != rval.x &&y != rval.y;
+		return x != rval.x || y != rval.y;
 	}
 
 public:

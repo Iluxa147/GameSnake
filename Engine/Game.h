@@ -26,10 +26,11 @@ private:
 	std::mt19937 rng_;
 	unsigned int snakeMoveCounter = 0u;
 	unsigned int snakeMovePeriod = 10u;
-	Location deltaLoc = { 1,0};
+	Location deltaLoc = { 1,0 };
 	Snake snake_;
 	Goal goal_;
 	unsigned int growCoutn = 0u;
 	Location nextDirection_;
+	Location currDirection_;
 	bool isGameOver = false;
 };

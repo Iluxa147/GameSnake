@@ -38,6 +38,17 @@ void Snake::Draw(Board & brd) const
 		segArr_[i].Draw(brd);
 	}
 }
+bool Snake::isInTile(const Location & loc) const
+{
+	for (size_t i = 0; i < segCurrent_; ++i)
+	{
+		if (segArr_[i].GetLocation() == loc)
+		{
+			return true;
+		}
+	}
+	return false;
+}
 
 bool Snake::isInTileExceptEnd(const Location & loc) const
 {
